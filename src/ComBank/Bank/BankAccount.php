@@ -25,6 +25,13 @@ class BankAccount
     private $status;
     private $overdraft;
 
+/**
+ * Setting the constructor for the account
+ */
+function __construct($balance){
+    $this->balance = $balance;
+}
+
     /**
      * Get the value of balance
      */ 
