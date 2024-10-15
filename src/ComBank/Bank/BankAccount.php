@@ -1,4 +1,5 @@
-<?php namespace ComBank\Bank;
+<?php
+namespace ComBank\Bank;
 
 /**
  * Created by VS Code.
@@ -20,4 +21,37 @@ use ComBank\Transactions\Contracts\BankTransactionInterface;
 
 class BankAccount
 {
+    private $balance;
+    private $status;
+    private $overdraft;
+
+    /**
+     * Get the value of balance
+     */ 
+    public function getBalance()
+    {
+        return $this->balance;
     }
+
+    /**
+     * Set the value of balance
+     *
+     * @return  self
+     */ 
+    public function setBalance($balance)
+    {
+        $this->balance = $balance;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of overdraft
+     */ 
+    public function getOverdraft()
+    {
+        return $this->overdraft;
+    }
+}
+    
+
