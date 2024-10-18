@@ -18,6 +18,7 @@ use ComBank\Exceptions\InvalidOverdraftFundsException;
 use ComBank\OverdraftStrategy\Contracts\OverdraftInterface;
 use ComBank\Support\Traits\AmountValidationTrait;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
+use ComBank\Transactions\DepositTransaction;
 use PhpParser\Node\Stmt\TryCatch;
 
 class BankAccount
@@ -53,17 +54,12 @@ class BankAccount
     /**
      * Used to make transactions
      */
-    public function transaction(BankTransactionInterface $bankTransaction): void
+    public function transaction(DepositTransaction $bankTransaction): void
     {
-        if (!$this->openAccount()) {
-            throw new BankAccountException('Bank account should be opened.');
-        }
-        try {
-            $newBalance = $bankTransaction->applyTransaction($this);
-            $this->setBalance($newBalance);
-        } catch (\Throwable $th) {
-            throw new FailedTransactionException($e->getMessage());
-        }
+
+        $newBalance = $bankTransaction->applyTransaction($this);
+        $this->setBalance($newBalance);
+
     }
 
     /**
