@@ -21,7 +21,7 @@ use ComBank\Transactions\Contracts\BankTransactionInterface;
 use ComBank\Transactions\DepositTransaction;
 use PhpParser\Node\Stmt\TryCatch;
 
-class BankAccount
+class BankAccount implements BankAccountInterface
 {
     private $balance;
     private $status;
