@@ -33,8 +33,15 @@ class BankAccount implements BankAccountInterface
     function __construct($balance)
     {
         $this->balance = $balance;
+        $this->status = BankAccountInterface::STATUS_OPEN;
     }
-
+    /**
+     * Setting isOpen  method to check if the account is open
+     */
+    public function isOpen(): bool
+    {
+        return $this->status === BankAccountInterface::STATUS_OPEN;
+    }
     /**
      * Used to close the bank account
      */
@@ -46,7 +53,7 @@ class BankAccount implements BankAccountInterface
     /**
      * Used to open the bank account
      */
-    public function openAccount(): void
+    public function reopenAccount(): void
     {
         $this->status = BankAccountInterface::STATUS_OPEN;
     }
@@ -54,7 +61,7 @@ class BankAccount implements BankAccountInterface
     /**
      * Used to make transactions
      */
-    public function transaction(DepositTransaction $bankTransaction): void
+    public function transaction(BankTransactionInterface $bankTransaction): void
     {
 
         $newBalance = $bankTransaction->applyTransaction($this);
@@ -75,17 +82,16 @@ class BankAccount implements BankAccountInterface
      *
      * @return  self
      */
-    public function setBalance($balance)
+    public function setBalance($balance): void
     {
         $this->balance = $balance;
 
-        return $this;
     }
 
     /**
      * Get the value of overdraft
      */
-    public function getOverdraft()
+    public function getOverdraft(): OverdraftInterface
     {
         return $this->overdraft;
     }
