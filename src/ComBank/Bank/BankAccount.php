@@ -37,7 +37,7 @@ class BankAccount implements BankAccountInterface
         $this->overdraft = new NoOverdraft;
     }
     public function applyOverdraft(OverdraftInterface $overdraft):void{
-        echo "ffe";
+        $this->overdraft=$overdraft;
     }
 
     

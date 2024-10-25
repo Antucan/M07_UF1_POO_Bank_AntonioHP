@@ -63,7 +63,7 @@ try {
     $bankAccount2 = new BankAccount(200.0);
     // show balance account
     pl('My balance:' . $bankAccount2->getBalance());
-
+    $bankAccount2->applyOverdraft(new SilverOverdraft());
     // deposit +100
     pl('Doing transaction deposit (+100) with current balance ' . $bankAccount2->getBalance());
     $bankAccount2->transaction(new DepositTransaction(100.0));
@@ -81,7 +81,7 @@ try {
 
     // withdrawal -120
     pl('Doing transaction withdrawal (-120) with current balance ' . $bankAccount2->getBalance());
-
+    $bankAccount2->transaction(new WithdrawTransaction(120.0));
 } catch (InvalidOverdraftFundsException $e) {
     pl($e->getMessage());
 } catch (FailedTransactionException $e) {
@@ -91,7 +91,7 @@ pl('My balance after failed last transaction : ' . $bankAccount2->getBalance());
 
 try {
     pl('Doing transaction withdrawal (-20) with current balance : ' . $bankAccount2->getBalance());
-
+    $bankAccount2->transaction(new WithdrawTransaction(20.0));
 } catch (FailedTransactionException $e) {
     pl('Error transaction: ' . $e->getMessage());
 }

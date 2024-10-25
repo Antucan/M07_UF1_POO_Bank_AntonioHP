@@ -19,6 +19,11 @@ trait AmountValidationTrait
      */
     public function validateAmount(float $amount):void
     {
-        
+        if (!is_numeric($amount)){
+            throw new InvalidArgsException('Invalid inserted value, the amount should be a numeric.');
+        }
+        if ($amount <= 0){
+            throw new ZeroAmountException('The amount should be more than zero for this transaction.');
+        }
     }
 }
