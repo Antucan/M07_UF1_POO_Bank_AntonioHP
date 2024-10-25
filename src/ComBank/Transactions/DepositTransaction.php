@@ -19,7 +19,7 @@ class DepositTransaction extends BaseTransaction implements BankTransactionInter
     }
     
     public function getTransactionInfo(): string {
-        return "Success transaction";
+        return "DEPOSIT_TRANSACTION";
     }
     public function getAmount(): float{
         return  $this->amount;

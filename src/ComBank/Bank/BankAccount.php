@@ -34,7 +34,13 @@ class BankAccount implements BankAccountInterface
     {
         $this->balance = $balance;
         $this->status = BankAccountInterface::STATUS_OPEN;
+        $this->overdraft = new NoOverdraft;
     }
+    public function applyOverdraft(OverdraftInterface $overdraft):void{
+        echo "ffe";
+    }
+
+    
     /**
      * Setting isOpen  method to check if the account is open
      */

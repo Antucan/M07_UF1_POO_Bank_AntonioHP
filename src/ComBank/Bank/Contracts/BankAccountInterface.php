@@ -23,7 +23,7 @@ interface BankAccountInterface
     public function closeAccount():void;
     public function getBalance(): float;
     public function getOverdraft():OverdraftInterface;
-    //public function applyOverdraft(OverdraftInterface $overdraft):void;
+    public function applyOverdraft(OverdraftInterface $overdraft):void;
     public function setBalance(float $balance):void;
 
 }
