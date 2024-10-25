@@ -24,7 +24,7 @@ class WithdrawTransaction extends BaseTransaction implements BankTransactionInte
     }
     public function getTransactionInfo(): string
     {
-        return "DEPOSIT_TRANSACTION";
+        return "WITHDRAW_TRANSACTION";
 
     }
     public function getAmount(): float
