@@ -36,11 +36,12 @@ class BankAccount implements BankAccountInterface
         $this->status = BankAccountInterface::STATUS_OPEN;
         $this->overdraft = new NoOverdraft;
     }
-    public function applyOverdraft(OverdraftInterface $overdraft):void{
-        $this->overdraft=$overdraft;
+    public function applyOverdraft(OverdraftInterface $overdraft): void
+    {
+        $this->overdraft = $overdraft;
     }
 
-    
+
     /**
      * Setting isOpen  method to check if the account is open
      */
@@ -53,7 +54,12 @@ class BankAccount implements BankAccountInterface
      */
     public function closeAccount(): void
     {
-        $this->status = BankAccountInterface::STATUS_CLOSED;
+        if ($this->status == BankAccountInterface::STATUS_CLOSED) {
+            pl('Error: My account is already closed');
+        } else {
+            $this->status = BankAccountInterface::STATUS_CLOSED;
+            pl('My account is now closed');
+        }
     }
 
     /**
@@ -62,6 +68,7 @@ class BankAccount implements BankAccountInterface
     public function reopenAccount(): void
     {
         $this->status = BankAccountInterface::STATUS_OPEN;
+        pl('My account is now reopened');
     }
 
     /**

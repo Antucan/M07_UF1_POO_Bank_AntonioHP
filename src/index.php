@@ -56,6 +56,7 @@ try {
     pl('Error transaction: ' . $e->getMessage());
 }
 pl('My balance after failed last transaction : ' . $bankAccount1->getBalance());
+$bankAccount1->closeAccount();
 
 //---[Bank account 2]---/
 pl('--------- [Start testing bank account #2, Silver overdraft (100.0 funds)] --------');
@@ -96,7 +97,8 @@ try {
     pl('Error transaction: ' . $e->getMessage());
 }
 pl('My new balance after withdrawal (-20) with funds : ' . $bankAccount2->getBalance());
-
+$bankAccount2->closeAccount();
+$bankAccount2->closeAccount();
 try {
 
 } catch (BankAccountException $e) {
