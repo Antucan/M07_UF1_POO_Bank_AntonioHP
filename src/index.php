@@ -104,3 +104,6 @@ try {
 } catch (BankAccountException $e) {
     pl($e->getMessage());
 }
+//---[National account]---/
+pl('--------- [Start testing National account with silver overdraft] --------');
+$nationalAccount = new BankAccount(100);

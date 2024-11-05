@@ -26,6 +26,7 @@ class BankAccount implements BankAccountInterface
     private $balance;
     private $status;
     private $overdraft;
+    private $currency;
 
     /**
      * Setting the constructor for the account
