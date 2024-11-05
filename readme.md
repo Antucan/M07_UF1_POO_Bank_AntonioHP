@@ -32,3 +32,8 @@ $ ./vendor/bin/phpunit ./tests
 ```
 $ php src/index.php
 ```
+
+#### API's
+```
+$ Converter -- https://www.amdoren.com/currency-api/?ref=public_apis
+```
