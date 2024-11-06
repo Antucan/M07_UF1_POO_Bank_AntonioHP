@@ -17,6 +17,8 @@ interface BankAccountInterface
 {
     const STATUS_OPEN = 'OPEN';
     const STATUS_CLOSED = 'CLOSED';
+    const CURRENCY_NATIONAL = '€';
+    const CURRENCY_INTERNATIONAL = '$';
 
     public function isOpen():bool;
     public function reopenAccount():void;

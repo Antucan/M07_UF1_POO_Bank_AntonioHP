@@ -105,5 +105,6 @@ try {
     pl($e->getMessage());
 }
 //---[National account]---/
-pl('--------- [Start testing National account with silver overdraft] --------');
-$nationalAccount = new BankAccount(100);
+pl('--------- [Start testing National account #3, Silver overdraft] --------');
+$nationalAccount = new BankAccount(50);
+pl('My balance:' . $nationalAccount->getBalance());

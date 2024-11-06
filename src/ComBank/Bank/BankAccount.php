@@ -23,19 +23,20 @@ use PhpParser\Node\Stmt\TryCatch;
 
 class BankAccount implements BankAccountInterface
 {
-    private $balance;
-    private $status;
-    private $overdraft;
-    private $currency;
+    protected $balance;
+    protected $status;
+    protected $overdraft;
+    protected $currency;
 
     /**
      * Setting the constructor for the account
      */
-    function __construct($balance)
+    function __construct(float $balance = 0.0, string $currency = "€")
     {
         $this->balance = $balance;
         $this->status = BankAccountInterface::STATUS_OPEN;
         $this->overdraft = new NoOverdraft;
+        $this->currency = BankAccountInterface::CURRENCY_NATIONAL;
     }
     public function applyOverdraft(OverdraftInterface $overdraft): void
     {
