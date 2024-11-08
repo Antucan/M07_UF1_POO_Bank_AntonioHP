@@ -17,6 +17,7 @@ use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\InvalidOverdraftFundsException;
 use ComBank\OverdraftStrategy\Contracts\OverdraftInterface;
 use ComBank\Support\Traits\AmountValidationTrait;
+use ComBank\Support\Traits\ApiTrait;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
 use ComBank\Transactions\DepositTransaction;
 use PhpParser\Node\Stmt\TryCatch;
@@ -42,7 +43,6 @@ class BankAccount implements BankAccountInterface
     {
         $this->overdraft = $overdraft;
     }
-
 
     /**
      * Setting isOpen  method to check if the account is open

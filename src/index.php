@@ -16,6 +16,7 @@ use ComBank\Exceptions\BankAccountException;
 use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\ZeroAmountException;
 use ComBank\Exceptions\InvalidOverdraftFundsException;
+use ComBank\Support\Traits\ApiTrait;
 
 require_once 'bootstrap.php';
 
@@ -48,7 +49,7 @@ try {
     $bankAccount1->transaction(new WithdrawTransaction(600.0));
 } catch (ZeroAmountException $e) {
     pl($e->getMessage());
-}catch (InvalidOverdraftFundsException $e) {
+} catch (InvalidOverdraftFundsException $e) {
     pl($e->getMessage());
 } catch (BankAccountException $e) {
     pl($e->getMessage());
@@ -108,3 +109,8 @@ try {
 pl('--------- [Start testing National account #3, Silver overdraft] --------');
 $nationalAccount = new BankAccount(50);
 pl('My balance:' . $nationalAccount->getBalance());
+
+// //---[National account]---/
+// pl('--------- [Start testing International account #4, Silver overdraft] --------');
+// $intAccount = new InternationalBankAccount(100);
+// pl('My balance:' . $intAccount->getBalance());
