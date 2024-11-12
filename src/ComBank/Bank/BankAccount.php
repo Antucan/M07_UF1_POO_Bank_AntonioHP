@@ -24,6 +24,7 @@ use PhpParser\Node\Stmt\TryCatch;
 
 class BankAccount implements BankAccountInterface
 {
+    use AmountValidationTrait, ApiTrait;
     protected $balance;
     protected $status;
     protected $overdraft;

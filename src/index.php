@@ -8,6 +8,8 @@
  */
 
 use ComBank\Bank\BankAccount;
+use ComBank\Bank\InternationalBankAccount;
+use ComBank\Bank\NationalBankAccount;
 use ComBank\OverdraftStrategy\SilverOverdraft;
 use ComBank\Transactions\DepositTransaction;
 use ComBank\Transactions\WithdrawTransaction;
@@ -107,10 +109,13 @@ try {
 }
 //---[National account]---/
 pl('--------- [Start testing National account #3, Silver overdraft] --------');
-$nationalAccount = new BankAccount(50);
-pl('My balance:' . $nationalAccount->getBalance());
+$nationalAccount = new NationalBankAccount(100);
+pl('My balance:' . $nationalAccount->getBalance() . '€');
 
-// //---[National account]---/
-// pl('--------- [Start testing International account #4, Silver overdraft] --------');
-// $intAccount = new InternationalBankAccount(100);
-// pl('My balance:' . $intAccount->getBalance());
+//---[National account]---/
+pl('--------- [Start testing International account #4, Silver overdraft] --------');
+$intAccount = new InternationalBankAccount(400);
+pl('My cuenta convertida:' . $intAccount->getBalance() . '€');
+pl('My cuenta convertida:' . $intAccount->getConvertedBalance() . $intAccount->getConvertedCurrency());
+
+
