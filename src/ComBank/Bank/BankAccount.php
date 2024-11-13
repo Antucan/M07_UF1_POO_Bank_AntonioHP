@@ -21,13 +21,15 @@ use ComBank\Support\Traits\ApiTrait;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
 use ComBank\Transactions\DepositTransaction;
 use PhpParser\Node\Stmt\TryCatch;
+use ComBank\Persona\PersonaAccount;
 
 class BankAccount implements BankAccountInterface
 {
     use AmountValidationTrait, ApiTrait;
+    protected PersonaAccount $holder;
     protected $balance;
     protected $status;
-    protected $overdraft;
+    protected OverdraftInterface $overdraft;
     protected $currency;
 
     /**
@@ -35,6 +37,7 @@ class BankAccount implements BankAccountInterface
      */
     function __construct(float $balance = 0.0, string $currency = "€")
     {
+        
         $this->balance = $balance;
         $this->status = BankAccountInterface::STATUS_OPEN;
         $this->overdraft = new NoOverdraft;

@@ -11,6 +11,7 @@ use ComBank\Bank\BankAccount;
 use ComBank\Bank\InternationalBankAccount;
 use ComBank\Bank\NationalBankAccount;
 use ComBank\OverdraftStrategy\SilverOverdraft;
+use ComBank\Persona\PersonaAccount;
 use ComBank\Transactions\DepositTransaction;
 use ComBank\Transactions\WithdrawTransaction;
 use ComBank\Transactions\BaseTransaction;
@@ -108,14 +109,22 @@ try {
     pl($e->getMessage());
 }
 //---[National account]---/
-pl('--------- [Start testing National account #3, Silver overdraft] --------');
-$nationalAccount = new NationalBankAccount(100);
-pl('My balance:' . $nationalAccount->getBalance() . '€');
+pl('--------- [Start testing National account #3, No overdraft] --------');
+$nationalAccount = new NationalBankAccount(500);
+pl('My balance:' . $nationalAccount->getBalance() . ' €');
 
-//---[National account]---/
-pl('--------- [Start testing International account #4, Silver overdraft] --------');
-$intAccount = new InternationalBankAccount(400);
-pl('My cuenta convertida:' . $intAccount->getBalance() . '€');
-pl('My cuenta convertida:' . $intAccount->getConvertedBalance() . $intAccount->getConvertedCurrency());
+//---[International account]---/
+pl('--------- [Start testing International account #4, No overdraft] --------');
+$intAccount = new InternationalBankAccount(300);
+pl('My balance:' . $intAccount->getBalance() . ' €');
+pl('Converting balance to USD ...');
+pl('My balance:' . $intAccount->getConvertedBalance() . $intAccount->getConvertedCurrency());
+
+//---[Testing National account Mail]---/
+pl('--------- [Start testing National account] --------');
+$nationalMail = new PersonaAccount('Li', 123, 'li');
+
+//---[Testing International account Mail]---/
+pl('--------- [Start testing International account] --------');
 
 
