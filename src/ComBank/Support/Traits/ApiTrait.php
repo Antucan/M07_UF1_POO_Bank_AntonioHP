@@ -25,8 +25,12 @@ trait ApiTrait
         $response = json_decode(curl_exec($curl), true);
 
         curl_close($curl);
+        if ($response['format'] == true && $response['disposable'] == false && $response['dns'] == true) {
+            return true;
+        } else {
+            return false;
+        }
 
-        return $response['format'];
     }
     public function convertBalance(float $amount): float
     {

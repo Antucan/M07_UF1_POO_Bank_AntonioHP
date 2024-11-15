@@ -15,11 +15,11 @@ class PersonaAccount
     {
         $this->name = $name;
         $this->idCard = $idCard;
-        if ($this->validateEmail($email)){
+        if ($this->validateEmail($email)) {
             $this->email = $email;
-            echo "Buen correo bro";
+            pl("Email is valid -- " . $email);
         } else {
-            echo "Mal correo bro";
+            pl("Invalid email address -- " . $email);
         }
     }
 
