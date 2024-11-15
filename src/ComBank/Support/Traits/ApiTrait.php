@@ -53,5 +53,17 @@ trait ApiTrait
         return $response['result'];
         //preguntar si hace falta que el dominio exista o otros parametros
     }
-    //public function detectFraud(BankTransactionInterface):bool{}
+    public function depositFraud(float $amount): bool
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://6737864c4eb22e24fca56ed4.mockapi.io/fraudDetection/deposit_transaction",
+            CURLOPT_RETURNTRANSFER => true,
+        ]);
+
+        $response = json_decode(curl_exec($curl), true);
+
+        return $response['action'];
+    }
 }
