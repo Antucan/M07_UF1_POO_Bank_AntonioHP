@@ -8,7 +8,6 @@ class PersonaAccount
     use ApiTrait;
     protected $name;
     protected $idCard;
-    //function que llama a validar el correo
     protected $email;
 
     function __construct($name, $idCard, $email)

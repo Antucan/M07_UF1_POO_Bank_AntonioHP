@@ -129,5 +129,5 @@ pl('--------- [Start testing International account] --------');
 $internationalMail = new InternationalBankAccount(new PersonaAccount('Li', 234, 'li@alex'), 400);
 
 //---[Testing National account Fraud]---/
-pl('--------- [Start testing International account FRAUD #1] --------');
+pl('--------- [Start testing National account FRAUD #1] --------');
 
