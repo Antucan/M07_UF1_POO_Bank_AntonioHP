@@ -127,7 +127,14 @@ $nationalMail = new NationalBankAccount(new PersonaAccount('Alabau', 123, 'alabi
 //---[Testing International account Mail]---/
 pl('--------- [Start testing International account] --------');
 $internationalMail = new InternationalBankAccount(new PersonaAccount('Li', 234, 'li@alex'), 400);
+try {
+    
 
-//---[Testing National account Fraud]---/
+//---[Testing International account Fraud]---/
 pl('--------- [Start testing International account FRAUD #1] --------');
+$intFraudAcc = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 200);
+$intFraudAcc->transaction(new DepositTransaction(100000));
+} catch (FailedTransactionException $e) {
+    pl($e->getMessage());
+}
 

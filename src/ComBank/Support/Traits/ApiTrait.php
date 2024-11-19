@@ -1,6 +1,7 @@
 <?php
 namespace ComBank\Support\Traits;
 
+use ComBank\Transactions\Contracts\BankTransactionInterface;
 use PHPUnit\Util\Json;
 
 trait ApiTrait
@@ -53,17 +54,28 @@ trait ApiTrait
         return $response['result'];
         //preguntar si hace falta que el dominio exista o otros parametros
     }
-    public function depositFraud(float $amount): bool
+    public function detectFraud(BankTransactionInterface $transaction): bool
     {
         $curl = curl_init();
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://6737864c4eb22e24fca56ed4.mockapi.io/fraudDetection/deposit_transaction",
+            CURLOPT_URL => "https://6737864c4eb22e24fca56ed4.mockapi.io/fraudDetection/fraud",
             CURLOPT_RETURNTRANSFER => true,
         ]);
 
         $response = json_decode(curl_exec($curl), true);
-
-        return $response['action'];
+        $fraud = false;
+        foreach ($response as $key => $value) {
+            if ($response[$key]['type'] == $transaction->getTransactionInfo()) {
+                if ($response[$key]['balance'] < $transaction->getAmount()) {
+                    if ($response[$key]['action'] == true) {
+                        $fraud = true;
+                    }else{
+                        $fraud = false;
+                    }
+                }
+            }
+        }
+        return $fraud;
     }
 }

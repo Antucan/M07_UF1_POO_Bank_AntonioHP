@@ -9,12 +9,18 @@ namespace ComBank\Transactions;
  */
 
 use ComBank\Bank\Contracts\BankAccountInterface;
+use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
+use ComBank\Support\Traits\ApiTrait;
 
 class DepositTransaction extends BaseTransaction implements BankTransactionInterface
 {
+    use ApiTrait;
     public function applyTransaction(BankAccountInterface $bankAccount): float
     {
+        if ($this->detectFraud($this)){
+            throw new FailedTransactionException('Blocked by possible fraud');
+        }
         return $bankAccount->getBalance() + $this->amount;
     }
     
