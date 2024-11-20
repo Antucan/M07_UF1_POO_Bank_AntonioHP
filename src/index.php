@@ -127,14 +127,48 @@ $nationalMail = new NationalBankAccount(new PersonaAccount('Alabau', 123, 'alabi
 //---[Testing International account Mail]---/
 pl('--------- [Start testing International account] --------');
 $internationalMail = new InternationalBankAccount(new PersonaAccount('Li', 234, 'li@alex'), 400);
-try {
-    
 
 //---[Testing International account Fraud]---/
-pl('--------- [Start testing International account FRAUD #1] --------');
+pl('--------- [Start testing International account FRAUD] --------');
 $intFraudAcc = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 200);
-$intFraudAcc->transaction(new DepositTransaction(100000));
+pl('Doing transaction deposit (+100000) with current balance ' . $intFraudAcc->getConvertedBalance() . $intFraudAcc->getConvertedCurrency());
+try {
+    $intFraudAcc->transaction(new DepositTransaction(100000));
 } catch (FailedTransactionException $e) {
     pl($e->getMessage());
 }
+pl('My new balance after deposti (+100000) : ' . $intFraudAcc->getConvertedBalance() . $intFraudAcc->getConvertedCurrency());
+pl('Doing transaction deposit (+5000) with current balance ' . $intFraudAcc->getConvertedBalance() . $intFraudAcc->getConvertedCurrency());
+$intFraudAcc->transaction(new DepositTransaction(5000));
+pl('My new balance after deposti (+5000) : ' . $intFraudAcc->getConvertedBalance() . $intFraudAcc->getConvertedCurrency());
+pl('Doing transaction withdraw (+10000) with current balance ' . $intFraudAcc->getConvertedBalance() . $intFraudAcc->getConvertedCurrency());
+try {
+    $intFraudAcc->transaction(new WithdrawTransaction(10000));
+} catch (FailedTransactionException $e) {
+    pl($e->getMessage());
+}
+pl('My new balance after withdraw (+10000) : ' . $intFraudAcc->getConvertedBalance() . $intFraudAcc->getConvertedCurrency());
+
+//---[Testing National account Fraud]---/
+pl('--------- [Start testing National account FRAUD] --------');
+$natFraudAcc = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 200);
+pl('Doing transaction deposit (+100000) with current balance ' . $natFraudAcc->getBalance());
+try {
+    $natFraudAcc->transaction(new DepositTransaction(100000));
+} catch (FailedTransactionException $e) {
+    pl($e->getMessage());
+}
+pl('My new balance after deposti (+100000) : ' . $natFraudAcc->getBalance() . ' €');
+pl('Doing transaction deposit (+5000) with current balance ' . $natFraudAcc->getBalance() . ' €');
+$natFraudAcc->transaction(new DepositTransaction(5000));
+pl('My new balance after deposti (+5000) : ' . $natFraudAcc->getBalance() . ' €');
+pl('Doing transaction withdraw (+10000) with current balance ' . $natFraudAcc->getBalance() . ' €');
+try {
+    $natFraudAcc->transaction(new WithdrawTransaction(10000));
+} catch (FailedTransactionException $e) {
+    pl($e->getMessage());
+}
+pl('My new balance after withdraw (+10000) : ' . $natFraudAcc->getBalance() . ' €');
+
+
 

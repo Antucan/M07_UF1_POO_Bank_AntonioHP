@@ -21,7 +21,9 @@ class DepositTransaction extends BaseTransaction implements BankTransactionInter
         if ($this->detectFraud($this)){
             throw new FailedTransactionException('Blocked by possible fraud');
         }
-        return $bankAccount->getBalance() + $this->amount;
+        $newBalance = $bankAccount->getBalance() + $this->amount;
+        $bankAccount->setBalance($newBalance);
+        return $newBalance;
     }
     
     public function getTransactionInfo(): string {

@@ -88,8 +88,6 @@ class BankAccount implements BankAccountInterface
         } catch (InvalidOverdraftFundsException $e) {
             throw new FailedTransactionException($e->getMessage());
         }
-        $newBalance = $bankTransaction->applyTransaction($this);
-        $this->setBalance($newBalance);
 
     }
 

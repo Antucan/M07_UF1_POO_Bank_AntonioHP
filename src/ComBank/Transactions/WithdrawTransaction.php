@@ -9,13 +9,19 @@ namespace ComBank\Transactions;
  */
 
 use ComBank\Bank\Contracts\BankAccountInterface;
+use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\InvalidOverdraftFundsException;
+use ComBank\Support\Traits\ApiTrait;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
 use ComBank\OverdraftStrategy\Contracts\OverdraftInterface;
 class WithdrawTransaction extends BaseTransaction implements BankTransactionInterface
 {
+    use ApiTrait;
     public function applyTransaction(BankAccountInterface $bankAccount): float
     {
+        if ($this->detectFraud($this)) {
+            throw new FailedTransactionException('Blocked by possible fraud');
+        }
         $newBalance = $bankAccount->getBalance() - $this->amount;
         if (!$bankAccount->getOverdraft()->isGrantOverdraftFunds($newBalance)) {
             throw new InvalidOverdraftFundsException('You withdraw has reach the max overdraft funds.');
