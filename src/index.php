@@ -151,7 +151,7 @@ pl('My new balance after withdraw (+10000) : ' . $intFraudAcc->getConvertedBalan
 
 //---[Testing National account Fraud]---/
 pl('--------- [Start testing National account FRAUD] --------');
-$natFraudAcc = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 200);
+$natFraudAcc = new NationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 200);
 pl('Doing transaction deposit (+100000) with current balance ' . $natFraudAcc->getBalance());
 try {
     $natFraudAcc->transaction(new DepositTransaction(100000));
@@ -169,6 +169,10 @@ try {
     pl($e->getMessage());
 }
 pl('My new balance after withdraw (+10000) : ' . $natFraudAcc->getBalance() . ' €');
+
+//---[Testing National account Phone Number]---/
+pl('--------- [Start testing National account Phone Number] --------');
+$natFraudAcc = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com', 608938062), 200);
 
 
 

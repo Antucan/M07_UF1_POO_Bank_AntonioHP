@@ -70,7 +70,7 @@ trait ApiTrait
                 if ($response[$key]['balance'] < $transaction->getAmount()) {
                     if ($response[$key]['action'] == true) {
                         $fraud = true;
-                    }else{
+                    } else {
                         $fraud = false;
                     }
                 }
@@ -78,4 +78,26 @@ trait ApiTrait
         }
         return $fraud;
     }
+
+    // public function validatePhoneNumber(int $phone): bool
+    // {
+    //     $curl = curl_init();
+
+    //     curl_setopt_array($curl, [
+    //         CURLOPT_URL => "https://phonevalidation.abstractapi.com/v1?api_key=51f973b849734ef086499da78a7f7fd2&phone=" . $phone . "&country=ES",
+    //         CURLOPT_RETURNTRANSFER => true,
+    //         CURLOPT_ENCODING => "",
+    //         CURLOPT_MAXREDIRS => 10,
+    //         CURLOPT_TIMEOUT => 30,
+    //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //         CURLOPT_CUSTOMREQUEST => "GET",
+    //     ]);
+
+    //     $response = json_decode(curl_exec($curl), true);
+    //     $err = curl_error($curl);
+
+    //     curl_close($curl);
+
+    //     return $response['valid'];
+    // }
 }

@@ -9,8 +9,9 @@ class PersonaAccount
     protected $name;
     protected $idCard;
     protected $email;
+    protected $phone;
 
-    function __construct($name, $idCard, $email)
+    function __construct($name, $idCard, $email, $phone = 608938062)
     {
         $this->name = $name;
         $this->idCard = $idCard;
@@ -20,6 +21,12 @@ class PersonaAccount
         } else {
             pl("Invalid email address -- " . $email);
         }
+        // if ($this->validatePhoneNumber($phone)) {
+        //     $this->phone = $phone;
+        //     pl("The phone is valid -- " . $phone);
+        // } else {
+        //     pl("Invalid phone number -- " . $phone);
+        // }
     }
 
 
