@@ -64,10 +64,11 @@ trait ApiTrait
         ]);
 
         $response = json_decode(curl_exec($curl), true);
+        curl_close($curl);
         $fraud = false;
         foreach ($response as $key => $value) {
             if ($response[$key]['type'] == $transaction->getTransactionInfo()) {
-                if ($response[$key]['balance'] < $transaction->getAmount()) {
+                if ($response[$key]['balance'] <= $transaction->getAmount()) {
                     if ($response[$key]['action'] == true) {
                         $fraud = true;
                     } else {
