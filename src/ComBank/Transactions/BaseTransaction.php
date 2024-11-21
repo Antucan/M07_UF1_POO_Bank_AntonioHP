@@ -25,6 +25,10 @@ abstract class BaseTransaction
         $this->amount = $amount;
 
     }
-   
+    public function getAmount(): float
+    {
+        return $this->amount;
+
+    }
     
 }

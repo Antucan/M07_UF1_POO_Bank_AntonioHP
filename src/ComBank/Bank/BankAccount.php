@@ -37,6 +37,7 @@ class BankAccount implements BankAccountInterface
      */
     function __construct(float $balance = 0.0, string $currency = "€")
     {
+        $this->validateAmount($balance);
         $this->balance = $balance;
         $this->status = BankAccountInterface::STATUS_OPEN;
         $this->overdraft = new NoOverdraft;
