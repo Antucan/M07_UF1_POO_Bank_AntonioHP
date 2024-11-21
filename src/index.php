@@ -171,8 +171,10 @@ try {
 pl('My new balance after withdraw (+10000) : ' . $natFraudAcc->getBalance() . ' €');
 
 //---[Testing National account Phone Number]---/
-pl('--------- [Start testing National account Phone Number] --------');
+pl('--------- [Start testing National account with correct Phone Number] --------');
 $natFraudAcc = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com', 608938062), 200);
+pl('--------- [Start testing National account with wrong Phone Number] --------');
+$natFraudAcc = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com', 58938062), 200);
 
 
 

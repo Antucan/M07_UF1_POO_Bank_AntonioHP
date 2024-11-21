@@ -80,25 +80,32 @@ trait ApiTrait
         return $fraud;
     }
 
-    // public function validatePhoneNumber(int $phone): bool
-    // {
-    //     $curl = curl_init();
+    public function validatePhoneNumber(int $phone): bool
+    {
+        $curl = curl_init();
 
-    //     curl_setopt_array($curl, [
-    //         CURLOPT_URL => "https://phonevalidation.abstractapi.com/v1?api_key=51f973b849734ef086499da78a7f7fd2&phone=" . $phone . "&country=ES",
-    //         CURLOPT_RETURNTRANSFER => true,
-    //         CURLOPT_ENCODING => "",
-    //         CURLOPT_MAXREDIRS => 10,
-    //         CURLOPT_TIMEOUT => 30,
-    //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    //         CURLOPT_CUSTOMREQUEST => "GET",
-    //     ]);
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.apilayer.com/number_verification/validate?number=34" . $phone,
+            CURLOPT_HTTPHEADER => array(
+                "Content-Type: text/plain",
+                "apikey: qPI0dqxHffXb9Mxu4Oz0MWWcw8VVcyAU"
+            ),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET"
+        ));
 
-    //     $response = json_decode(curl_exec($curl), true);
-    //     $err = curl_error($curl);
+        $response = json_decode(curl_exec($curl), true);
 
-    //     curl_close($curl);
-
-    //     return $response['valid'];
-    // }
+        curl_close($curl);
+        if ($response['valid'] == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

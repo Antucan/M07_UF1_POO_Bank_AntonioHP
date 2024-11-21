@@ -21,12 +21,12 @@ class PersonaAccount
         } else {
             pl("Invalid email address -- " . $email);
         }
-        // if ($this->validatePhoneNumber($phone)) {
-        //     $this->phone = $phone;
-        //     pl("The phone is valid -- " . $phone);
-        // } else {
-        //     pl("Invalid phone number -- " . $phone);
-        // }
+        if ($this->validatePhoneNumber($phone)) {
+            $this->phone = $phone;
+            pl("The phone is valid -- " . $phone);
+        } else {
+            pl("Invalid phone number -- " . $phone);
+        }
     }
 
 
