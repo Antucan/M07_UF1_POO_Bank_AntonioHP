@@ -18,19 +18,22 @@ class DepositTransaction extends BaseTransaction implements BankTransactionInter
     use ApiTrait;
     public function applyTransaction(BankAccountInterface $bankAccount): float
     {
-        if ($this->detectFraud($this)){
-            throw new FailedTransactionException('Blocked by possible fraud');
+        [$risk, $fraud] = $this->detectFraud($this);
+        if ($fraud) {
+            throw new FailedTransactionException('Blocked by possible fraud with risk ' . $risk);
         }
         $newBalance = $bankAccount->getBalance() + $this->amount;
         $bankAccount->setBalance($newBalance);
         return $newBalance;
     }
-    
-    public function getTransactionInfo(): string {
+
+    public function getTransactionInfo(): string
+    {
         return "DEPOSIT_TRANSACTION";
     }
-    public function getAmount(): float{
-        return  $this->amount;
+    public function getAmount(): float
+    {
+        return $this->amount;
 
     }
 }

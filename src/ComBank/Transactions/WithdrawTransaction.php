@@ -19,8 +19,9 @@ class WithdrawTransaction extends BaseTransaction implements BankTransactionInte
     use ApiTrait;
     public function applyTransaction(BankAccountInterface $bankAccount): float
     {
-        if ($this->detectFraud($this)) {
-            throw new FailedTransactionException('Blocked by possible fraud');
+        [$risk, $fraud] = $this->detectFraud($this);
+        if ($fraud) {
+            throw new FailedTransactionException('Blocked by possible fraud with risk ' . $risk);
         }
         $newBalance = $bankAccount->getBalance() - $this->amount;
         if (!$bankAccount->getOverdraft()->isGrantOverdraftFunds($newBalance)) {

@@ -54,7 +54,7 @@ trait ApiTrait
         return $response['result'];
         //preguntar si hace falta que el dominio exista o otros parametros
     }
-    public function detectFraud(BankTransactionInterface $transaction): bool
+    public function detectFraud(BankTransactionInterface $transaction): array
     {
         $curl = curl_init();
 
@@ -65,19 +65,22 @@ trait ApiTrait
 
         $response = json_decode(curl_exec($curl), true);
         curl_close($curl);
+        $risk = null;
         $fraud = false;
         foreach ($response as $key => $value) {
             if ($response[$key]['type'] == $transaction->getTransactionInfo()) {
                 if ($response[$key]['balance'] <= $transaction->getAmount()) {
                     if ($response[$key]['action'] == true) {
+                        $risk = $response[$key]['risk'];
                         $fraud = true;
                     } else {
+                        $risk = $response[$key]['risk'];
                         $fraud = false;
                     }
                 }
             }
         }
-        return $fraud;
+        return [$risk, $fraud];
     }
 
     public function validatePhoneNumber(int $phone): bool
