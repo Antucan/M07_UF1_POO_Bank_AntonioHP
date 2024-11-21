@@ -26,13 +26,13 @@ require_once 'bootstrap.php';
 
 //---[Bank account 1]---/
 // create a new account1 with balance 400
-$account1 = new BankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 400);
+$account1 = new BankAccount(400);
 pl('--------- [Start testing bank account #1, No overdraft] --------');
 try {
     // show balance account
     pl('My balance:' . $account1->getBalance());
     // crear una cuenta con balance 400 y mostrar su balance
-    $bankAccount1 = new BankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 400);
+    $bankAccount1 = new BankAccount(400);
     // close account
     $bankAccount1->closeAccount();
     // reopen account
@@ -65,7 +65,7 @@ $bankAccount1->closeAccount();
 //---[Bank account 2]---/
 pl('--------- [Start testing bank account #2, Silver overdraft (100.0 funds)] --------');
 try {
-    $bankAccount2 = new BankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 200.0);
+    $bankAccount2 = new BankAccount(200.0);
     // show balance account
     pl('My balance:' . $bankAccount2->getBalance());
     $bankAccount2->applyOverdraft(new SilverOverdraft());
@@ -110,27 +110,29 @@ try {
 }
 //---[National account]---/
 pl('--------- [Start testing National account #3, No overdraft] --------');
-$nationalAccount = new NationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 500);
+$nationalAccount = new NationalBankAccount(500);
 pl('My balance:' . $nationalAccount->getBalance() . ' €');
 
 //---[International account]---/
 pl('--------- [Start testing International account #4, No overdraft] --------');
-$intAccount = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 300);
+$intAccount = new InternationalBankAccount(300);
 pl('My balance:' . $intAccount->getBalance() . ' €');
 pl('Converting balance to USD ...');
 pl('My balance:' . $intAccount->getConvertedBalance() . $intAccount->getConvertedCurrency());
 
 //---[Testing National account Mail]---/
 pl('--------- [Start testing National account] --------');
-$nationalMail = new NationalBankAccount(new PersonaAccount('Alabau', 123, 'alabike@gmail.com'), 400);
+$nationalMail = new NationalBankAccount(400);
+$nationalMail->setPersona(new PersonaAccount('Alabau', 123, 'alabike@gmail.com'));
 
 //---[Testing International account Mail]---/
 pl('--------- [Start testing International account] --------');
-$internationalMail = new InternationalBankAccount(new PersonaAccount('Li', 234, 'li@alex'), 400);
+$internationalMail = new InternationalBankAccount(400);
+$internationalMail->setPersona(new PersonaAccount('Li', 234, 'li@alex'));
 
 //---[Testing International account Fraud]---/
 pl('--------- [Start testing International account FRAUD] --------');
-$intFraudAcc = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 200);
+$intFraudAcc = new InternationalBankAccount(200);
 pl('Doing transaction deposit (+100000) with current balance ' . $intFraudAcc->getConvertedBalance() . $intFraudAcc->getConvertedCurrency());
 try {
     $intFraudAcc->transaction(new DepositTransaction(100000));
@@ -151,7 +153,7 @@ pl('My new balance after withdraw (+10000) : ' . $intFraudAcc->getConvertedBalan
 
 //---[Testing National account Fraud]---/
 pl('--------- [Start testing National account FRAUD] --------');
-$natFraudAcc = new NationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com'), 200);
+$natFraudAcc = new NationalBankAccount(200);
 pl('Doing transaction deposit (+100000) with current balance ' . $natFraudAcc->getBalance());
 try {
     $natFraudAcc->transaction(new DepositTransaction(100000));
@@ -172,9 +174,11 @@ pl('My new balance after withdraw (+10000) : ' . $natFraudAcc->getBalance() . ' 
 
 //---[Testing National account Phone Number]---/
 pl('--------- [Start testing National account with correct Phone Number] --------');
-$natFraudAcc = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com', 608938062), 200);
+$natFraudAcc = new InternationalBankAccount(200);
+$natFraudAcc->setPersona(new PersonaAccount(0, 0, 'a@gmail.com', 608938062));
 pl('--------- [Start testing National account with wrong Phone Number] --------');
-$natFraudAcc = new InternationalBankAccount(new PersonaAccount(0, 0, 'a@gmail.com', 58938062), 200);
+$natFraudAcc2 = new InternationalBankAccount(200);
+$natFraudAcc2->setPersona(new PersonaAccount(0, 0, 'a@gmail.com', 58938062));
 
 
 

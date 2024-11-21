@@ -35,9 +35,8 @@ class BankAccount implements BankAccountInterface
     /**
      * Setting the constructor for the account
      */
-    function __construct(PersonaAccount $persona, float $balance = 0.0, string $currency = "€")
+    function __construct(float $balance = 0.0, string $currency = "€")
     {
-        $this->holder = $persona;
         $this->balance = $balance;
         $this->status = BankAccountInterface::STATUS_OPEN;
         $this->overdraft = new NoOverdraft;
@@ -116,6 +115,18 @@ class BankAccount implements BankAccountInterface
     public function getOverdraft(): OverdraftInterface
     {
         return $this->overdraft;
+    }
+
+    /**
+     * Set the value of holder
+     *
+     * @return  self
+     */ 
+    public function setPersona($holder)
+    {
+        $this->holder = $holder;
+
+        return $this;
     }
 }
 
